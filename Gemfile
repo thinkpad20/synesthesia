@@ -34,6 +34,10 @@ gem 'midilib'
 
 gem 'rmagick'
 
+gem 'valid_email', :require => 'valid_email/email_validator'
+
+gem 'rails-i18n' #for translation/internationalization
+
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
 

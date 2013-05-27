@@ -1,7 +1,15 @@
 class User < ActiveRecord::Base
-
-	validates_presence_of :username, :email
+	include ActiveModel::Validations
 	attr_accessible :email, :full_name, :password_hash, :username
+
+	# validates_presence_of :username, :email
+
+	validates :username,
+						:presence => true,
+						:length => { :maximum => 50 }
+  	validates :email, 	:presence =>{message: "cannot be blank"},
+  						:email => {message: "is not valid"},
+  						uniqueness: { message: "is already taken", case_sensitive: false }
 
 	has_many :images
 	has_many :likes
@@ -11,8 +19,16 @@ class User < ActiveRecord::Base
 		return PasswordHash.validatePassword(password, hash)
 	end
 
-	#params SC access_token hash
-	#stores in user table
-	def store_soundcloud_info(access_token)
+	def new?
+		id.nil?
 	end
+
+	def username_taken?
+		self.class.exists?(:username => username)
+	end
+
+	def email_taken?
+		self.class.exists?(:email => email)
+	end
+
 end

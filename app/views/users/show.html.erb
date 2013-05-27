@@ -6,20 +6,12 @@
 </p>
 
 <p>
-  <b>Email:</b>
-  <%= @user.email %>
-</p>
-
-<p>
-  <b>Full name:</b>
+  <b>Name:</b>
   <%= @user.full_name %>
 </p>
 
-<% if !@user[:sc_access_token] %>
+<!-- TODO: show users sounds -->
 
-<% client = Soundcloud.new(:client_id => SC_ID, :client_secret =>SC_SECRET, :redirect_uri => )%>
-<%= link_to "Connect to Soundcloud", client.authorize_url() %>
-<% end %>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |
 <%= link_to 'Back', users_path %>

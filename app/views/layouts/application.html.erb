@@ -50,7 +50,7 @@
     						<li class="dropdown">
     							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
     							<ul class="dropdown-menu">
-    								<li><a href="#">Action</a></li>
+    								<li><a href="www.google.com">Action</a></li>
     								<li><a href="#">Another action</a></li>
     								<li><a href="#">Something else here</a></li>
     								<li class="divider"></li>
@@ -62,9 +62,7 @@
     						<% if signed_in? %>
     						   <li class="active"><%= link_to "#{current_user.username}'s Profile", user_url(current_user) %></li>
     						<% end %>
-                     <% if flash[:notice].present? %>
-                        <li class="alert"><%= flash[:notice] %></li>
-                     <% end %>
+
     					</ul>
     					<% if signed_in? %>
 
@@ -73,11 +71,11 @@
 	    					<% end %>
     					<% else %>
 	    					<form class="navbar-form pull-right" action="/users/new" method="get">
-	    						<%= button_tag "Sign up", type:"submit", class:"btn" %>
+	    						<%= button_tag "Sign up", type:"submit", class:"btn", style:"margin-left:4px"%>
 	    					</form>
 
 	    					<form class="navbar-form pull-right" action=<%= log_in_url %> method="post">
-	    						<input class="span2" type="text" placeholder="Username or Email" name="email">
+	    						<input class="span2" type="text" placeholder="Email" name="email">
 	    						<input class="span2" type="password" placeholder="Password" name="password">
 
 	    						<%= button_tag "Sign in", type:"submit", class:"btn" %>
@@ -88,12 +86,16 @@
     		</div>
     	</div>
 
+      <% if flash[:notice].present? %>
+      <p class="alert" style="text-align:center"><%= flash[:notice] %></p>
+      <% end %>
+
     	<div class="container">
     		<%= yield %>
     	</div>
     	<hr>
     	<footer>
-    		<p>&copy; Foobar 2013</p>
+    		<p style="margin-left:10px">&copy; Foobar 2013</p>
     	</footer>
 	<!-- Le javascript
 	================================================== -->

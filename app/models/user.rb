@@ -7,12 +7,27 @@ class User < ActiveRecord::Base
 	validates :username,
 						:presence => true,
 						:length => { :maximum => 50 }
-  	validates :email, 	:presence =>{message: "cannot be blank"},
-  						:email => {message: "is not valid"},
-  						uniqueness: { message: "is already taken", case_sensitive: false }
 
 	has_many :images
 	has_many :likes
+
+	def self.validate_email(addr)
+		if not addr.present?
+			return {message: "cannot be blank"}
+		end
+
+		if (not addr.count('@') == 1) || (addr.include?('..')) || (not addr.include?('.'))
+			return {message: "is not valid"}
+		end
+
+		@user = User.find_by_emal(addr)
+
+		if @user.present? 
+			return { message: "is already taken", case_sensitive: false }
+		end
+
+		return nil
+	end
 
 	def authenticate(password)
 		hash = password_hash

@@ -43,30 +43,35 @@ class UsersController < ApplicationController
   def create
 
     @user = User.new(params[:user])
+    email_res = User.validate_email(@user.email)
+    if not email_res.nil?
+      respond_to do |format|
+          format.html { redirect_to new_user_url, notice: "Email #{email_res[:message]}" }
+      end
 
-        if !@user.valid?
+    elsif !@user.valid?
 
-            # return redirect - email or username is already taken
-            respond_to do |format|
-              format.html { redirect_to new_user_url, notice: "#{@user.errors.full_messages.join(', ')}" }
-              #TODO: render JSON
-            end
-
-        else
-            # else save user
-            @user.password_hash = PasswordHash.createHash(params[:password])
-
-            respond_to do |format|
-              if @user.save
-                session[:user_id] = @user.id
-                format.html { redirect_to user_path(@user), notice: "Welcome to Synesthesia, #{@user.username}." }
-                format.json { render json: @user, status: :created, location: @user }
-              else
-                format.html { render action: "new", notice: "Error"}
-                format.json { render json: @user.errors, status: :unprocessable_entity }
-              end
-            end
+        # return redirect - email or username is already taken
+        respond_to do |format|
+          format.html { redirect_to new_user_url, notice: "#{@user.errors.full_messages.join(', ')}" }
+          #TODO: render JSON
         end
+        
+    else
+        # else save user
+        @user.password_hash = PasswordHash.createHash(params[:password])
+
+        respond_to do |format|
+          if @user.save
+            session[:user_id] = @user.id
+            format.html { redirect_to user_path(@user), notice: "Welcome to Synesthesia, #{@user.username}." }
+            format.json { render json: @user, status: :created, location: @user }
+          else
+            format.html { render action: "new", notice: "Error"}
+            format.json { render json: @user.errors, status: :unprocessable_entity }
+          end
+        end
+    end
 
   end
 

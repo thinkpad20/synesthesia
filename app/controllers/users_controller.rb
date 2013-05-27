@@ -48,7 +48,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         session[:user_id] = @user.id
-        format.html { redirect_to show_user_url[@user.id], notice: "Welcome to Synesthesia, #{@user.username}." }
+        format.html { redirect_to user_path(@user), notice: "Welcome to Synesthesia, #{@user.username}." }
         format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render action: "new" }

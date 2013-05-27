@@ -1,0 +1,25 @@
+<%= form_for(@sound) do |f| %>
+  <% if @sound.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sound.errors.count, "error") %> prohibited this sound from being saved:</h2>
+
+      <ul>
+      <% @sound.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="field">
+    Enter a URL for your image (required):<br />
+    <%= f.text_field :url %>
+  </div>
+
+  <div class="field">
+    Enter a description of your image (optional):<br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @sound.name %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @sound.description %>
+</p>
+
+<p>
+  <b>Url:</b>
+  <%= @sound.url %>
+</p>
+
+<p>
+  <b>Algorithm name:</b>
+  <%= @sound.algorithm_name %>
+</p>
+
+
+<%= link_to 'Edit', edit_sound_path(@sound) %> |
+<%= link_to 'Back', sounds_path %>

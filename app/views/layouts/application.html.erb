@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Synesthesia</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- Le styles -->
+	<%= stylesheet_link_tag    "bootstrap", :media => "all" %>
+	<style type="text/css">
+	body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+	}
+	</style>
+	<%= stylesheet_link_tag    "bootstrap-responsive", :media => "all" %>
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+      <![endif]-->
+
+      <!-- Fav and touch icons -->
+      <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+      <link rel="shortcut icon" href="../assets/ico/favicon.png">
+      <%= javascript_include_tag "application" %>
+      <%= csrf_meta_tags %>
+    </head>
+
+    <body>
+
+    	<div class="navbar navbar-inverse navbar-fixed-top">
+    		<div class="navbar-inner">
+    			<div class="container">
+    				<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+    					<span class="icon-bar"></span>
+    					<span class="icon-bar"></span>
+    					<span class="icon-bar"></span>
+    				</button>
+    				<a class="brand" href="/home">Synesthesia</a>
+    				<div class="nav-collapse collapse">
+    					<ul class="nav">
+    						<li><%= link_to "Users", users_url %></li>
+
+    						<li class="dropdown">
+    							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+    							<ul class="dropdown-menu">
+    								<li><a href="#">Action</a></li>
+    								<li><a href="#">Another action</a></li>
+    								<li><a href="#">Something else here</a></li>
+    								<li class="divider"></li>
+    								<li class="nav-header">Nav header</li>
+    								<li><a href="#">Separated link</a></li>
+    								<li><a href="#">One more separated link</a></li>
+    							</ul>
+    						</li>
+    						<% if signed_in? %>
+    						   <li class="active"><%= link_to "#{current_user.username}'s Profile", user_url(current_user) %></li>
+    						<% end %>
+                     <% if flash[:notice].present? %>
+                        <li class="alert"><%= flash[:notice] %></li>
+                     <% end %>
+    					</ul>
+    					<% if signed_in? %>
+
+    						<%= form_tag log_out_url, class:"navbar-form pull-right", method:"delete" do %>
+	    						<%= button_tag "Sign out", type:"submit", class:"btn" %>
+	    					<% end %>
+    					<% else %>
+	    					<form class="navbar-form pull-right" action="/users/new" method="get">
+	    						<%= button_tag "Sign up", type:"submit", class:"btn" %>
+	    					</form>
+
+	    					<form class="navbar-form pull-right" action=<%= log_in_url %> method="post">
+	    						<input class="span2" type="text" placeholder="Username or Email" name="email">
+	    						<input class="span2" type="password" placeholder="Password" name="password">
+
+	    						<%= button_tag "Sign in", type:"submit", class:"btn" %>
+	    					</form>
+    					<% end %>
+    				</div><!--/.nav-collapse -->
+    			</div>
+    		</div>
+    	</div>
+
+    	<div class="container">
+    		<%= yield %>
+    	</div>
+    	<hr>
+    	<footer>
+    		<p>&copy; Foobar 2013</p>
+    	</footer>
+	<!-- Le javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+
+	<script src="../assets/js/jquery.js"></script>
+	<script src="../assets/js/bootstrap-transition.js"></script>
+	<script src="../assets/js/bootstrap-alert.js"></script>
+	<script src="../assets/js/bootstrap-modal.js"></script>
+	<script src="../assets/js/bootstrap-dropdown.js"></script>
+	<script src="../assets/js/bootstrap-scrollspy.js"></script>
+	<script src="../assets/js/bootstrap-tab.js"></script>
+	<script src="../assets/js/bootstrap-tooltip.js"></script>
+	<script src="../assets/js/bootstrap-popover.js"></script>
+	<script src="../assets/js/bootstrap-button.js"></script>
+	<script src="../assets/js/bootstrap-collapse.js"></script>
+	<script src="../assets/js/bootstrap-carousel.js"></script>
+	<script src="../assets/js/bootstrap-typeahead.js"></script>
+
+</body>
+</html>

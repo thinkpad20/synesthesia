@@ -71,7 +71,7 @@ def make_midi(path)
 		end
 	end
 
-	File.open('../tmp/midi/new.mid', 'wb') { |file| seq.write(file) }
+	File.open('../midi/new.mid', 'wb') { |file| seq.write(file) }
 	puts "Successfully created file"
 end
 

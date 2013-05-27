@@ -34,7 +34,7 @@ gem 'midilib'
 
 gem 'rmagick'
 
-gem 'valid_email', :require => 'valid_email/email_validator'
+# gem 'valid_email', :require => 'valid_email/email_validator'
 
 gem 'rails-i18n' #for translation/internationalization
 

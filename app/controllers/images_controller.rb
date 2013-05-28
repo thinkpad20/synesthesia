@@ -51,14 +51,16 @@ include ImagesHelper
     @image = Image.new(params[:image])
     @image.user_id = current_user.id
 
-    img_url = (Rails.root.to_s + "/public" + @image.file.url).split("?")[0]
-
-    fname = ( @image.name + current_user.username).gsub(/\s+/, "")
-
     ###PROCESS IMAGE###
 
     respond_to do |format|
       if @image.save
+
+        img_url = (Rails.root.to_s + "/public" + @image.file.url.split("?")[0])
+        puts "PATH TO IMG: #{img_url}"
+
+        fname = ( @image.name + current_user.username).gsub(/\s+/, "")
+
         make_midi(img_url, fname)
 
         @sound = Sound.new

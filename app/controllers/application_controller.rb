@@ -1,4 +1,5 @@
 require 'password_hash'
+require 'from_image'
 
 class ApplicationController < ActionController::Base
 	include PasswordHash

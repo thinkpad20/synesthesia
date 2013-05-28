@@ -36,6 +36,8 @@ gem 'rmagick'
 
 # gem 'valid_email', :require => 'valid_email/email_validator'
 
+gem "paperclip", "~> 3.0"
+
 gem 'rails-i18n' #for translation/internationalization
 
 # To use ActiveModel has_secure_password

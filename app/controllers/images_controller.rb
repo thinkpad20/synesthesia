@@ -1,4 +1,7 @@
 class ImagesController < ApplicationController
+
+include ImagesHelper
+
   # GET /images
   # GET /images.json
   def index
@@ -40,10 +43,30 @@ class ImagesController < ApplicationController
   # POST /images
   # POST /images.json
   def create
+    #TODO: form validation
+    if !signed_in?
+      redirect_to home_url
+    end
+
     @image = Image.new(params[:image])
+    @image.user_id = current_user.id
+
+    img_url = (Rails.root.to_s + "/public" + @image.file.url).split("?")[0]
+
+    fname = ( @image.name + current_user.username).gsub(/\s+/, "")
+
+    ###PROCESS IMAGE###
 
     respond_to do |format|
       if @image.save
+        make_midi(img_url, fname)
+
+        @sound = Sound.new
+        @sound.name = @image.name
+        @sound.url = get_url(img_url, fname)
+
+        @sound.save
+
         format.html { redirect_to @image, notice: 'Image was successfully created.' }
         format.json { render json: @image, status: :created, location: @image }
       else

@@ -125,11 +125,16 @@ def make_midi(path, output_name)
 	# track.recalc_times
 
 	File.open("#{output_name}.mid", 'wb') { |file| seq.write(file) }
+	final_output = "../app/assets/sound/#{output_name}.mp3"
 	system "fluidsynth -F #{output_name}.raw /usr/share/sounds/sf2/FluidR3_GM.sf2 #{output_name}.mid"
-	system "lame --preset standard #{output_name}.raw #{output_name}.mp3"
+	system "lame --preset standard #{output_name}.raw #{final_output}"
 	system "rm #{output_name}.mid #{output_name}.raw"
 	puts "Successfully created file"
 
 end
 
-make_midi("http://29a.ch/_shared/29a_theme/me.jpg", "blorbus")
+def get_url(path, output_name)
+	return "/assets/sound/#{output_name}.mp3"
+end
+
+# make_midi("http://29a.ch/_shared/29a_theme/me.jpg", "blorbus")

@@ -1,8 +1,6 @@
 class User < ActiveRecord::Base
 	include ActiveModel::Validations
-	attr_accessible :email, :full_name, :password_hash, :username
-
-	# validates_presence_of :username, :email
+	attr_accessible :email, :full_name, :password_hash, :username, :avatar
 
 	validates :username,
 						:presence => true,
@@ -10,6 +8,7 @@ class User < ActiveRecord::Base
 
 	has_many :images
 	has_many :likes
+	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/assets/:style/missing.png"
 
 	def self.validate_email(addr)
 		if not addr.present?
@@ -20,9 +19,9 @@ class User < ActiveRecord::Base
 			return {message: "is not valid"}
 		end
 
-		@user = User.find_by_emal(addr)
+		@user = User.find_by_email(addr)
 
-		if @user.present? 
+		if @user.present?
 			return { message: "is already taken", case_sensitive: false }
 		end
 

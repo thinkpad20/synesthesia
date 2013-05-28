@@ -11,8 +11,13 @@
     </div>
   <% end %>
 
+
   <div class="field" style="margin-bottom: 15px">
-    <%= f.label :username %><br />
+    <%= f.label :avatar, style:"margin-bottom:-10px"  %><br />
+    <%= f.file_field :avatar %>
+  </div>
+  <div class="field" style="margin-bottom: 15px">
+    <%= f.label :username, style:"margin-bottom:-10px"  %><br />
     <%= f.text_field :username %>
   </div>
   <div class="field" style="margin-bottom: 15px">
@@ -20,11 +25,11 @@
     <%= password_field_tag %>
   </div>
   <div class="field" style="margin-bottom: 15px">
-    <%= f.label :email %><br />
+    <%= f.label :email, style:"margin-bottom:-10px" %><br />
     <%= f.text_field :email %>
   </div>
   <div class="field" style="margin-bottom: 15px">
-    <%= f.label :full_name %><br />
+    <%= f.label :full_name, style:"margin-bottom:-10px" %><br />
     <%= f.text_field :full_name %>
   </div>
   <div class="actions">

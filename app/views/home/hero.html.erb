@@ -22,7 +22,8 @@
             <% Image.last_n(10).each do |img| %>
               <tr>
                 <td><%= img.url %></td>
-                <td><%= Sound.where(image_id: img.id).limit(1)[0].url %></td>
+                <% sound = Sound.where(image_id: img.id).limit(1)[0] %>
+                <td><%= sound.url if sound.present? %></td>
               </tr>
             <% end %>
           </table>

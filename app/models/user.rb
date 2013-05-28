@@ -46,4 +46,11 @@ class User < ActiveRecord::Base
 		self.class.exists?(:email => email)
 	end
 
+	def num_files
+		return Image.where(:user_id => self.id).count
+	end
+
+	def self.last_n(n)
+  		return User.order("created_at DESC").limit(n)
+  	end
 end

@@ -142,11 +142,12 @@ def make_midi(path, output_name)
 	system "lame --preset standard #{output_name}.raw #{final_output}"
 	puts "WROTE MP3"
 	system "rm #{output_name}.mid #{output_name}.raw"
-	puts "Successfully created file"
+	puts "Successfully created file, final output = #{final_output}, (images helper) pwd:"
+	system "pwd"
 end
 
 def get_url(path, output_name)
-	return Rails.root.to_s + "/app/assets/sound/#{output_name}.mp3"
+	return Rails.root.to_s + "/public/sound/#{output_name}.mp3"
 end
 
 # make_midi("http://29a.ch/_shared/29a_theme/me.jpg", "blorbus")

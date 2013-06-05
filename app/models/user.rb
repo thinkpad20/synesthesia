@@ -6,9 +6,18 @@ class User < ActiveRecord::Base
 						:presence => true,
 						:length => { :maximum => 50 }
 
-	has_many :images
+	has_many :images, dependent: :destroy
 	has_many :likes
-	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/assets/:style/missing.png"
+
+	has_many :relationships, foreign_key: "follower_id", dependent: :destroy
+ 	has_many :followed_users, through: :relationships, source: :followed
+ 	has_many :reverse_relationships, foreign_key: "followed_id",
+                                   class_name:  "Relationship",
+                                   dependent:   :destroy
+  	has_many :followers, through: :reverse_relationships, source: :follower
+
+
+	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/assets/:style/missing.png", dependent: :destroy
 
 	def self.validate_email(addr)
 		if not addr.present?
@@ -60,5 +69,17 @@ class User < ActiveRecord::Base
   		end
   		puts res
   		return res
+  	end
+
+  	def following?(other_user)
+    		relationships.find_by_followed_id(other_user.id)
+  	end
+
+  	def follow!(other_user)
+    		relationships.create!(followed_id: other_user.id)
+  	end
+
+  	def unfollow!(other_user)
+    		relationships.find_by_followed_id(other_user.id).destroy
   	end
 end

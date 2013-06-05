@@ -56,6 +56,7 @@ include ImagesHelper
     respond_to do |format|
       if @image.save
 
+
         img_url = (Rails.root.to_s + "/public" + @image.file.url.split("?")[0])
         puts "PATH TO IMG: #{img_url}"
 

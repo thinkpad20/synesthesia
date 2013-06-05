@@ -12,7 +12,20 @@
   <%= @user.full_name %>
 </p>
 
-
+<h3><%= @user.username %>'s syneths:</h3>
+<table class="table">
+	<% @user.get_syneths.each do |syneth| %>
+	<tr>
+		<td><%= image_tag syneth[0].file.url(:medium) %></td>
+	</tr>
+	<tr>
+		<td><%= syneth[0].description %></td>
+	</tr>
+	<tr>
+		<td><audio controls><source src="<%= syneth[1].url.split("assets")[1] %>" type="audio/mpeg"></audio></td>
+	</tr>
+	<% end %>
+</table>
 
 <!-- TODO: show users sounds -->
 

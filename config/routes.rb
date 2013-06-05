@@ -10,6 +10,7 @@ App::Application.routes.draw do
 
   resources :users
 
+  get "/", :controller => "home", :action => "hero", as: "root"
   get "/home", :controller => "home", :action => "hero", as: "home"
 
   get '/sessions/new' => 'Sessions#new', as: 'new_session'

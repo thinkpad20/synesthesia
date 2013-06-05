@@ -52,4 +52,13 @@ class User < ActiveRecord::Base
 	def self.last_n(n)
   		return User.order("created_at DESC").limit(n)
   	end
+
+  	def get_syneths
+  		res = []
+  		images.each do |image|
+  			res << [image, image.sounds[0]]
+  		end
+  		puts res
+  		return res
+  	end
 end

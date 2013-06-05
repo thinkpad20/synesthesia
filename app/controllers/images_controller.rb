@@ -66,6 +66,7 @@ include ImagesHelper
         @sound = Sound.new
         @sound.name = @image.name
         @sound.url = get_url(img_url, fname)
+        @sound.image_id = @image.id
 
         @sound.save
 

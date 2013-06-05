@@ -42,14 +42,14 @@ def make_midi(path, output_name)
 
 	img.each_pixel do |pixel, col, row|
 
-	  # puts "Pixel at: #{col}x#{row}:
-	  # \tR: #{pixel.red}, G: #{pixel.green}, B: #{pixel.blue}"
+		# puts "Pixel at: #{col}x#{row}:
+		# \tR: #{pixel.red}, G: #{pixel.green}, B: #{pixel.blue}"
 
-	if vals[col] == nil
-		vals[col] = [ (pixel.red + pixel.green + pixel.blue)/3 ]
-	else
-	 	vals[col] << ( (pixel.red + pixel.green + pixel.blue)/3 )
-	end
+		if vals[col] == nil
+			vals[col] = [ (pixel.red + pixel.green + pixel.blue)/3 ]
+		else
+		 	vals[col] << ( (pixel.red + pixel.green + pixel.blue)/3 )
+		end
 
 	end
 
@@ -132,7 +132,6 @@ def make_midi(path, output_name)
 	system "lame --preset standard #{output_name}.raw #{final_output}"
 	system "rm #{output_name}.mid #{output_name}.raw"
 	puts "Successfully created file"
-
 end
 
 def get_url(path, output_name)
@@ -140,6 +139,5 @@ def get_url(path, output_name)
 end
 
 # make_midi("http://29a.ch/_shared/29a_theme/me.jpg", "blorbus")
-
 
 end

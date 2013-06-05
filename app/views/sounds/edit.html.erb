@@ -3,4 +3,6 @@
 <%= render 'form' %>
 
 <%= link_to 'Show', @sound %> |
+<%= link_to 'Delete', sound, method: :delete, data: { confirm: 'Are you sure?' } %>
 <%= link_to 'Back', sounds_path %>
+

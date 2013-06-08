@@ -23,16 +23,14 @@
 <h3><%= @user.username %>'s syneths:</h3>
 <table class="table">
 	<% @user.get_syneths.each do |syneth| %>
-	<tr>
+	<tr id="image_<%= syneth[0].id %>">
+
 		<td><%= image_tag syneth[0].file.url(:thumb) %></td>
-<!-- 	</tr>
-	<tr> -->
 		<td><%= syneth[0].name %></td>
 		<td><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></td>
-<!-- 	</tr> -->
-<!-- 	<tr> -->
 		<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio></td>
 		<td><%= link_to image_tag('trash-can-icon.jpg', :size => '30x30'), image_url(syneth[0]), method: 'delete', remote: true, data: { confirm: 'Are you sure?' }%></td>
+
 	</tr>
 	<% end %>
 </table>

@@ -1,9 +1,8 @@
-<h1>List of Users</h1>
+<h1>Users</h1>
 
 <table class="table">
   <tr>
     <th>Username</th>
-    <th>Email</th>
     <th>Full name</th>
     <th>Files Uploaded</th>
   </tr>
@@ -11,7 +10,6 @@
 <% @users.each do |user| %>
   <tr>
     <td><%= link_to user.username, user %></td>
-    <td><%= user.email %></td>
     <td><%= user.full_name %></td>
     <td><%= user.num_files.to_s %></td>
   </tr>
@@ -19,5 +17,3 @@
 </table>
 
 <br />
-
-<%= link_to 'New User', new_user_path %>

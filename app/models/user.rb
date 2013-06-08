@@ -62,9 +62,10 @@ class User < ActiveRecord::Base
   		return User.order("created_at DESC").limit(n)
   	end
 
+  	#returns users syneths as a "tuple" of image and corresponded sound
   	def get_syneths
   		res = []
-  		images.each do |image|
+  		images.order("updated_at DESC").each do |image|
   			res << [image, image.sounds[0]]
   		end
   		puts res

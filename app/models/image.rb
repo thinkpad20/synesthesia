@@ -2,9 +2,9 @@ class Image < ActiveRecord::Base
   attr_accessible :description, :name, :url, :file
 
   belongs_to :user
-  has_many :sounds
+  has_many :sounds, dependent: :destroy
 
-  has_attached_file :file, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/assets/:style/missing.png"
+  has_attached_file :file, :styles => { :medium => "300x300#", :thumb => "100x100#" }, :default_url => "/assets/:style/missing.png"
 
   def self.last_n(n, user_id = nil)
   	if user_id.present?

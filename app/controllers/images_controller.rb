@@ -56,11 +56,10 @@ include ImagesHelper
     respond_to do |format|
       if @image.save
 
-
         img_url = (Rails.root.to_s + "/public" + @image.file.url.split("?")[0])
         puts "PATH TO IMG: #{img_url}"
 
-        fname = ( @image.name + current_user.username).gsub(/\s+/, "")
+        fname = sanitize_filename( ( @image.name + current_user.username).gsub(/\s+/, "") )
 
         make_midi(img_url, fname)
 
@@ -103,6 +102,7 @@ include ImagesHelper
     @image.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to images_url }
       format.json { head :no_content }
     end

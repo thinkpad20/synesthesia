@@ -13,23 +13,20 @@
           <p><a class="btn" href="#">View details &raquo;</a></p>
         </div> -->
         <div class="span6">
-          <h2>Most recent synesths</h2>
+          <h2>Recent synesths</h2>
           <table class="table">
-            <tr>
-              <th>Image URL</th>
-              <th>MIDI URL</th>
-            </tr>
+
             <% Image.last_n(10).each do |img| %>
               <tr>
-                <td><%= img.url %></td>
+                <td><%= image_tag img.file.url(:thumb) %></td>
                 <% sound = Sound.where(image_id: img.id).limit(1)[0] %>
-                <td><%= sound.url if sound.present? %></td>
+                <td><audio controls><source src="<%= sound.url.split("public")[1] if sound.present? %>" type="audio/mpeg"></audio></td>
               </tr>
             <% end %>
           </table>
        </div>
         <div class="span6">
-          <h2>Most recent users</h2>
+          <h2>Recent users</h2>
           <table class="table">
             <% User.last_n(10).each do |usr| %>
               <tr>

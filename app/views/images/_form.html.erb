@@ -1,4 +1,21 @@
+<style>
+#load_box {
+  display:none;
+}
+</style>
 
+<script>
+var clear_screen = function() {
+  $('#sub_form').hide();
+  $('#load_box').show();
+};
+</script>
+
+<div id='load_box'>
+  Please wait, your syneth is being generated...
+</div>
+
+<div id="sub_form">
 <%= form_for(@image) do |f| %>
   <% if @image.errors.any? %>
     <div id="error_explanation">
@@ -24,6 +41,7 @@
     <%= f.label :file, style:"margin-bottom:-10px"  %><br />
     <%= f.file_field :file %>
   <div class="actions" style="margin-bottom: 15px">
-    <%= f.submit 'Create Syneth', style:"margin-bottom:-10px" %>
+    <%= f.submit 'Create Syneth', style:"margin-bottom:-10px", onclick:"clear_screen()" %>
   </div>
 <% end %>
+</div>

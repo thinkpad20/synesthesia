@@ -17,12 +17,10 @@ var activ = function(id) {
 };
 
 var write_comment = function(sound_id) {
-	var comment_disp = '#comment_display_' + sound_id; 
-	var comment_write = '#comment_write_' + sound_id;
-	var write_link = '#write_link_' + sound_id;
-	$(comment_disp).hide();
-	$(comment_write).show();
-	$(write_link).hide();
+	$('#comment_display_' + sound_id).hide();
+	$('#comment_write_' + sound_id).show();
+	$('#write_link_' + sound_id).hide();
+	$("#comment_none_" + sound_id).hide();
 };
 
 </script>

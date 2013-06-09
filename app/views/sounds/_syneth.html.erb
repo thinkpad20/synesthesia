@@ -20,10 +20,12 @@
 							<% end %>
 						</table>
 					<% else %>
-						This doesn't have any comments yet. 
-						<% if signed_in? %>
-						Why don't you <%= link_to_function "Write a comment", "write_comment(#{syneth[1].id})" %>
-						<% end %>
+						<div id="comment_none_<%= syneth[1].id %>">
+							This doesn't have any comments yet. 
+							<% if signed_in? %>
+							Why don't you <%= link_to_function "write one", "write_comment(#{syneth[1].id})" %>?
+							<% end %>
+						</div>
 					<% end %>
 					<div id="comment_write_<%= syneth[1].id %>" style="display:none">
 			    	<form action="/comments" method="post">

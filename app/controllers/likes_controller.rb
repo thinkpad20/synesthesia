@@ -40,7 +40,9 @@ class LikesController < ApplicationController
   # POST /likes
   # POST /likes.json
   def create
-    @like = Like.new(params[:like])
+    @like = Like.new
+    @like.user_id = params[:user_id]
+    @like.sound_id = params[:sound_id]
 
     respond_to do |format|
       if @like.save

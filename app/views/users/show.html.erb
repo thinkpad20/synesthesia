@@ -29,7 +29,29 @@
 		<td><%= syneth[0].name %></td>
 		<td><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></td>
 		<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio></td>
+
+		<% if signed_in? %>
+			<td>|</td>
+			<td><%= Like.where(syneth[1].id).count %></td>
+
+
+			<% if Like.like_exists?( current_user.id, syneth[1].id) %>
+
+			<td><%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30'), like_url(Like.like_for(current_user.id, syneth[1])), method: 'delete', remote: true %></td>
+
+			<% else %>
+
+			<td><%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30'), likes_url, method: 'post', remote: true, :user_id => current_user.id, :sound_id=> syneth[1] %></td>
+
+			<% end %>
+
+			<td>|</td>
+		<% end %>
+
+		<% if signed_in? && current_user.id == @user.id %>
+
 		<td><%= link_to image_tag('trash-can-icon.jpg', :size => '30x30'), image_url(syneth[0]), method: 'delete', remote: true, data: { confirm: 'Are you sure?' }%></td>
+		<% end %>
 
 	</tr>
 	<% end %>

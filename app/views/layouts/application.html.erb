@@ -72,7 +72,8 @@ $(document).ajaxSend(function(e, xhr, options) {
 	    					</form>
 
 	    					<form class="navbar-form pull-right" action=<%= log_in_url %> method="post">
-	    						<input class="span2" type="text" placeholder="Email" name="email">
+                  <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	    						<input class="span2" type="text" placeholder="Username or Email" name="email">
 	    						<input class="span2" type="password" placeholder="Password" name="password">
 
 	    						<%= button_tag "Sign in", type:"submit", class:"btn" %>

@@ -1,0 +1,3 @@
+$('#like_<%= @sound_id %>').attr('src', '/assets/thumbs-up-disabled.jpg');
+$("#like_count_<%= @sound_id %>").text("<%= Like.where(:sound_id => @sound_id).count %>");
+

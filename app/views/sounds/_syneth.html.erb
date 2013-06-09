@@ -15,7 +15,7 @@
 				<div id="comment_area" style="height:100px;width:250px;border:0px solid #ccc;overflow:auto;">
 					<% if syneth[1].comments.length > 0 %>
 						<table id="comment_display_<%= syneth[1].id %>">
-							<% syneth[1].comments.each do |comment| %>
+							<% syneth[1].comments.reverse_each do |comment| %>
 							<%= render 'comments/viewsingle', comment: comment %>
 							<% end %>
 						</table>

@@ -1,6 +1,6 @@
     <tr>
-        <td width="1%" style="color:gray">
-        	<b><%= comment.user.username %>:</b>
+        <td width="1%">
+        	<b><%= link_to comment.user.username, user_url(comment.user), :style =>"color:gray" %>:</b>
         </td>
         <td>
         	<%= comment.content %>

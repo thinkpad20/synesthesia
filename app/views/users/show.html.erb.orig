@@ -16,6 +16,15 @@ var activ = function(id) {
 	}
 };
 
+var write_comment = function(sound_id) {
+	var comment_disp = '#comment_display_' + sound_id; 
+	var comment_write = '#comment_write_' + sound_id;
+	var write_link = '#write_link_' + sound_id;
+	$(comment_disp).hide();
+	$(comment_write).show();
+	$(write_link).hide();
+};
+
 </script>
 
 <p>
@@ -57,6 +66,9 @@ var activ = function(id) {
 <div id="syneths">
 	<table class="table">
 		<% @user.get_syneths.each do |syneth| %>
+<<<<<<< HEAD
+			<%= render 'sounds/syneth', :syneth => syneth %>
+=======
 		<tr id="image_<%= syneth[0].id %>">
 
 			<td><%= image_tag syneth[0].file.url(:thumb) %></td>
@@ -66,7 +78,7 @@ var activ = function(id) {
 
 			<% if signed_in? %>
 				<td>|</td>
-				<td><%= Like.where(:sound_id => syneth[1].id).count %></td>
+				<td id="like_count_<%=syneth[1].id%>"><%= Like.where(:sound_id => syneth[1].id).count %></td>
 
 
 				<% if Like.like_exists?( current_user.id, syneth[1].id) %>
@@ -96,6 +108,7 @@ var activ = function(id) {
 			<% end %>
 
 		</tr>
+>>>>>>> 59f1e36b8194af463dfcbcdc6feddf4e7acc56a2
 		<% end %>
 	</table>
 </div>
@@ -128,15 +141,9 @@ var activ = function(id) {
 		<% end %>
 	</table>
 <% else %>
-<<<<<<< HEAD
 	<%= @user.username %> does not have any followers yet.
-	<% if @user != current_user %>
+	<% if signed_in? && @user != current_user %>
 	Why don't you <%= link_to "follow #{@user.username}",
-=======
-	<%= @user.username %> does not have any followers yet. 
-	<% if signed_in? && @user != current_user %> 
-	Why don't you <%= link_to "follow #{@user.username}", 
->>>>>>> a724156819764ff8028ea29763e2d4199991322d
 										{ controller: "relationships", action: "create", user_id: @user.id},
 										{ method: "post", remote: true } %>?
 	<% end %>

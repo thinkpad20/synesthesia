@@ -128,9 +128,9 @@ var activ = function(id) {
 		<% end %>
 	</table>
 <% else %>
-	<%= @user.username %> does not have any followers yet.
-	<% if @user != current_user %>
-	Why don't you <%= link_to "follow #{@user.username}",
+	<%= @user.username %> does not have any followers yet. 
+	<% if signed_in? && @user != current_user %> 
+	Why don't you <%= link_to "follow #{@user.username}", 
 										{ controller: "relationships", action: "create", user_id: @user.id},
 										{ method: "post", remote: true } %>?
 	<% end %>

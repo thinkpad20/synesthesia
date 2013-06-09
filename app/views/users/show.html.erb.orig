@@ -64,40 +64,26 @@ var activ = function(id) {
 			<td><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></td>
 			<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio></td>
 
-<<<<<<< HEAD
-		<% if signed_in? %>
-			<td>|</td>
-=======
 			<% if signed_in? %>
 				<td>|</td>
 				<td><%= Like.where(:sound_id => syneth[1].id).count %></td>
->>>>>>> 0c1fe9ed2d8d0d757e02c6d7996f90ab7973e7a3
 
-			<td id="like_count_<%= syneth[1].id %>"><%= Like.where(:sound_id => syneth[1].id).count %></td>
 
 				<% if Like.like_exists?( current_user.id, syneth[1].id) %>
 
-<<<<<<< HEAD
-			<td>
-				<%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
-				{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
-				{:method => "get", remote: true } %>
-			</td>
-=======
-				<td><%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30'), like_url(Like.like_for(current_user.id, syneth[1])), method: 'delete', remote: true %></td>
->>>>>>> 0c1fe9ed2d8d0d757e02c6d7996f90ab7973e7a3
+				<td>
+					<%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
+					{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
+					{:method => "get", remote: true } %>
+				</td>
 
 				<% else %>
 
-<<<<<<< HEAD
-			<td>
-				<%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
-				{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
-				{:method => "get", remote: true } %>
-			</td>
-=======
-				<td><%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30'), { :controller => "likes", :action => "create", :user_id => current_user.id, :sound_id=> syneth[1].id }, {:method => "post", remote: true } %></td>
->>>>>>> 0c1fe9ed2d8d0d757e02c6d7996f90ab7973e7a3
+				<td>
+					<%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
+					{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
+					{:method => "get", remote: true } %>
+				</td>
 
 				<% end %>
 
@@ -142,9 +128,15 @@ var activ = function(id) {
 		<% end %>
 	</table>
 <% else %>
+<<<<<<< HEAD
+	<%= @user.username %> does not have any followers yet.
+	<% if @user != current_user %>
+	Why don't you <%= link_to "follow #{@user.username}",
+=======
 	<%= @user.username %> does not have any followers yet. 
-	<% if @user != current_user %> 
+	<% if signed_in? && @user != current_user %> 
 	Why don't you <%= link_to "follow #{@user.username}", 
+>>>>>>> a724156819764ff8028ea29763e2d4199991322d
 										{ controller: "relationships", action: "create", user_id: @user.id},
 										{ method: "post", remote: true } %>?
 	<% end %>

@@ -16,6 +16,15 @@ var activ = function(id) {
 	}
 };
 
+var write_comment = function(sound_id) {
+	var comment_disp = '#comment_display_' + sound_id; 
+	var comment_write = '#comment_write_' + sound_id;
+	var write_link = '#write_link_' + sound_id;
+	$(comment_disp).hide();
+	$(comment_write).show();
+	$(write_link).hide();
+};
+
 </script>
 
 <p>
@@ -57,45 +66,7 @@ var activ = function(id) {
 <div id="syneths">
 	<table class="table">
 		<% @user.get_syneths.each do |syneth| %>
-		<tr id="image_<%= syneth[0].id %>">
-
-			<td><%= image_tag syneth[0].file.url(:thumb) %></td>
-			<td><%= syneth[0].name %></td>
-			<td><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></td>
-			<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio></td>
-
-			<% if signed_in? %>
-				<td>|</td>
-				<td><%= Like.where(:sound_id => syneth[1].id).count %></td>
-
-
-				<% if Like.like_exists?( current_user.id, syneth[1].id) %>
-
-				<td>
-					<%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
-					{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
-					{:method => "get", remote: true } %>
-				</td>
-
-				<% else %>
-
-				<td>
-					<%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
-					{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
-					{:method => "get", remote: true } %>
-				</td>
-
-				<% end %>
-
-				<td>|</td>
-			<% end %>
-
-			<% if signed_in? && current_user.id == @user.id %>
-
-			<td><%= link_to image_tag('trash-can-icon.jpg', :size => '30x30'), image_url(syneth[0]), method: 'delete', remote: true, data: { confirm: 'Are you sure?' }%></td>
-			<% end %>
-
-		</tr>
+			<%= render 'sounds/syneth', :syneth => syneth %>
 		<% end %>
 	</table>
 </div>

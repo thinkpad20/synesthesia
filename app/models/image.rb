@@ -21,4 +21,12 @@ class Image < ActiveRecord::Base
       self.signed_up_on = Date.today
     end
 
+  def self.last_n_syneths(n)
+    res = []
+    Image.last_n(n).each do |image|
+      res << [image, image.sounds[0]]
+    end
+    puts res
+    return res
+  end
 end

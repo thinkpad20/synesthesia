@@ -3,5 +3,6 @@ class Sound < ActiveRecord::Base
 
   has_many :likes
   belongs_to :image
+  has_many :comments
 
 end

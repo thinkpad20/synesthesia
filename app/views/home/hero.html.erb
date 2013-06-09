@@ -15,13 +15,8 @@
         <div class="span6">
           <h2>Recent synesths</h2>
           <table class="table">
-
-            <% Image.last_n(10).each do |img| %>
-              <tr>
-                <td><%= image_tag img.file.url(:thumb) %></td>
-                <% sound = Sound.where(image_id: img.id).limit(1)[0] %>
-                <td><audio controls><source src="<%= sound.url.split("public")[1] if sound.present? %>" type="audio/mpeg"></audio></td>
-              </tr>
+            <% Image.last_n_syneths(10).each do |syneth| %>
+              <%= render 'sounds/syneth', :syneth => syneth, :mini => true %>
             <% end %>
           </table>
        </div>

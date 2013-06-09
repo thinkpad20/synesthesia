@@ -1,0 +1,80 @@
+<tr id="image_<%= syneth[0].id %>">
+	<% if not defined?(mini) %>
+	<% mini = false %>
+	<% end %>
+
+	<td><%= image_tag syneth[0].file.url(:thumb) %></td>
+	<% if not mini %>
+	<td><%= syneth[0].name %></td>
+	<td><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></td>
+	<% end %>
+	<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio></td>
+
+	<% if not mini %>
+		<td>
+				<div id="comment_area" style="height:100px;width:250px;border:0px solid #ccc;overflow:auto;">
+					<% if syneth[1].comments.length > 0 %>
+						<table id="comment_display_<%= syneth[1].id %>">
+							<% syneth[1].comments.each do |comment| %>
+							<%= render 'comments/viewsingle', comment: comment %>
+							<% end %>
+						</table>
+					<% else %>
+						This doesn't have any comments yet. 
+						<% if signed_in? %>
+						Why don't you <%= link_to_function "Write a comment", "write_comment(#{syneth[1].id})" %>
+						<% end %>
+					<% end %>
+					<div id="comment_write_<%= syneth[1].id %>" style="display:none">
+			    	<form action="/comments" method="post">
+			        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			        <input name="comment[user_id]" value="<%= current_user.id %>" type="number" style="display:none">
+			        <input name="comment[sound_id]" value="<%= syneth[1].id %>" type="number" style="display:none">
+			        <input name="source_page" value="<%= user_url(@user) %>" type="hidden">
+							<textarea placeholder="Enter a comment here" name="comment[content]"></textarea>
+							<%= button_tag "Submit", type:"submit", class:"btn" %>
+						</form>
+					</div> <!-- comment write form -->
+				</div> <!-- comment area -->
+
+			<% if signed_in? && syneth[1].comments.length > 0 %>
+				<br>
+				<div id="write_link_<%= syneth[1].id %>">
+					<%= link_to_function "Write a comment", "write_comment(#{syneth[1].id})" %>
+				</div>
+			<% end %>
+		</td>
+
+		<% if signed_in? %>
+			<td>|</td>
+			<td><%= Like.where(:sound_id => syneth[1].id).count %></td>
+
+
+			<% if Like.like_exists?( current_user.id, syneth[1].id) %>
+
+			<td>
+				<%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
+				{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
+				{:method => "get", remote: true } %>
+			</td>
+
+			<% else %>
+
+			<td>
+				<%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
+				{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
+				{:method => "get", remote: true } %>
+			</td>
+
+			<% end %>
+
+			<td>|</td>
+		<% end %>
+
+		<% if signed_in? && current_user.id == @user.id %>
+
+			<td><%= link_to image_tag('trash-can-icon.jpg', :size => '30x30'), image_url(syneth[0]), method: 'delete', remote: true, data: { confirm: 'Are you sure?' }%></td>
+		<% end %>
+	<% end %>
+
+</tr>

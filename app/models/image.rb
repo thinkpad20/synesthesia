@@ -1,12 +1,9 @@
 class Image < ActiveRecord::Base
   attr_accessible :description, :name, :url, :file
 
-  after_destroy :delete_image_resource
-
   belongs_to :user
   has_many :sounds, dependent: :destroy
-
-  has_attached_file :file, :styles => { :medium => "300x300#", :thumb => "100x100#" }, :default_url => "/assets/:style/missing.png"
+  has_attached_file :file, :styles => { :medium => "300x300#", :thumb => "100x100#" }, :default_url => "/assets/:style/missing.png", dependent: :destroy
 
   def self.last_n(n, user_id = nil)
   	if user_id.present?
@@ -16,9 +13,5 @@ class Image < ActiveRecord::Base
   	end
   end
 
-  private
-    def delete_image_resource
-      self.signed_up_on = Date.today
-    end
 
 end

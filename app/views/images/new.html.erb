@@ -1,11 +1,29 @@
 <script type="text/javascript">
 
-$()
+$();
+
+var clear_screen = function() {
+  $('#sub_form').hide();
+  $('#load_box').show();
+};
 
 </script>
 
+<style>
+#load_box {
+  display:none;
+}
+</style>
+<div class='text-center' id='load_box'>
+
+<h1>Please wait, your syneth is being generated...</h1><br>
+<%= image_tag 'ajax_loader.gif' %>
+</div>
+
+<div id="sub_form">
 <h1>New Syneth</h1>
 
 <%= render 'form' %>
 
 <%= link_to 'Back', images_path %>
+</div>

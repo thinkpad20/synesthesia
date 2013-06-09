@@ -1,21 +1,4 @@
-<style>
-#load_box {
-  display:none;
-}
-</style>
 
-<script>
-var clear_screen = function() {
-  $('#sub_form').hide();
-  $('#load_box').show();
-};
-</script>
-
-<div id='load_box'>
-  Please wait, your syneth is being generated...
-</div>
-
-<div id="sub_form">
 <%= form_for(@image) do |f| %>
   <% if @image.errors.any? %>
     <div id="error_explanation">
@@ -44,4 +27,3 @@ var clear_screen = function() {
     <%= f.submit 'Create Syneth', style:"margin-bottom:-10px", onclick:"clear_screen()" %>
   </div>
 <% end %>
-</div>

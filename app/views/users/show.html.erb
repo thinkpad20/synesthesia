@@ -71,11 +71,19 @@ var activ = function(id) {
 
 				<% if Like.like_exists?( current_user.id, syneth[1].id) %>
 
-				<td><%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30'), like_url(Like.like_for(current_user.id, syneth[1])), method: 'delete', remote: true %></td>
+				<td>
+					<%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
+					{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
+					{:method => "get", remote: true } %>
+				</td>
 
 				<% else %>
 
-				<td><%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30'), { :controller => "likes", :action => "create", :user_id => current_user.id, :sound_id=> syneth[1].id }, {:method => "post", remote: true } %></td>
+				<td>
+					<%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30', :id=>"like_#{syneth[1].id}"),
+					{ :controller => "likes", :action => "toggle_like", :user_id => current_user.id, :sound_id=> syneth[1].id },
+					{:method => "get", remote: true } %>
+				</td>
 
 				<% end %>
 
@@ -120,9 +128,9 @@ var activ = function(id) {
 		<% end %>
 	</table>
 <% else %>
-	<%= @user.username %> does not have any followers yet. 
-	<% if @user != current_user %> 
-	Why don't you <%= link_to "follow #{@user.username}", 
+	<%= @user.username %> does not have any followers yet.
+	<% if @user != current_user %>
+	Why don't you <%= link_to "follow #{@user.username}",
 										{ controller: "relationships", action: "create", user_id: @user.id},
 										{ method: "post", remote: true } %>?
 	<% end %>

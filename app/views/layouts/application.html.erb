@@ -54,7 +54,9 @@ $(document).ajaxSend(function(e, xhr, options) {
     					<ul class="nav">
     						<li><%= link_to "Users", users_url %></li>
 
+                <% if signed_in? %>
     						<li><%= link_to "Create", new_image_url %></li>
+                <% end %>
 
     						<% if signed_in? %>
     						   <li class="active"><%= link_to "#{current_user.username}'s Profile", user_url(current_user) %></li>

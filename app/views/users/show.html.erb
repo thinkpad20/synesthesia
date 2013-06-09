@@ -1,3 +1,23 @@
+<script type="text/javascript">
+var activ = function(id) {
+	var elems = [$('#syneths'), $('#followed_users'), $('#followers')];
+	var hdrs = [$('#syneths_header'), $('#followed_users_header'), $('#followers_header')];
+	var idx = 0;
+	while (idx < elems.length) {
+		var elem = elems[idx];
+		if (elem.attr('id') == id) {
+			elem.show();
+			hdrs[idx].addClass('active');
+		} else {
+			elem.hide();
+			hdrs[idx].removeClass('active');
+		}
+		idx = idx + 1;
+	}
+};
+
+</script>
+
 <p>
 <%= image_tag @user.avatar.url(:thumb) %>
 </p>
@@ -20,40 +40,91 @@
 
 <%= link_to 'Back to users', users_path %>
 
-<h3><%= @user.username %>'s syneths:</h3>
-<table class="table">
-	<% @user.get_syneths.each do |syneth| %>
-	<tr id="image_<%= syneth[0].id %>">
-
-		<td><%= image_tag syneth[0].file.url(:thumb) %></td>
-		<td><%= syneth[0].name %></td>
-		<td><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></td>
-		<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio></td>
-
-		<% if signed_in? %>
-			<td>|</td>
-			<td><%= Like.where(:sound_id => syneth[1].id).count %></td>
+<div class="navbar">
+  <div class="navbar-inner">
+    <div class="container">
+      <ul class="nav">
+        <li id="syneths_header" class="active"><%= link_to_function 'syneths', 'activ("syneths")'%></li>
+        <li id="followed_users_header"><%= link_to_function 'followed users', 'activ("followed_users")'%></li>
+        <li id="followers_header"><%= link_to_function 'followers', 'activ("followers")'%></li>
+      </ul>
+    </div>
+  </div>
+</div><!-- /.navbar -->
 
 
-			<% if Like.like_exists?( current_user.id, syneth[1].id) %>
+<!--  SYNETHS TABLE -->
+<div id="syneths">
+	<table class="table">
+		<% @user.get_syneths.each do |syneth| %>
+		<tr id="image_<%= syneth[0].id %>">
 
-			<td><%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30'), like_url(Like.like_for(current_user.id, syneth[1])), method: 'delete', remote: true %></td>
+			<td><%= image_tag syneth[0].file.url(:thumb) %></td>
+			<td><%= syneth[0].name %></td>
+			<td><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></td>
+			<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio></td>
 
-			<% else %>
+			<% if signed_in? %>
+				<td>|</td>
+				<td><%= Like.where(:sound_id => syneth[1].id).count %></td>
 
-			<td><%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30'), { :controller => "likes", :action => "create", :user_id => current_user.id, :sound_id=> syneth[1].id }, {:method => "post", remote: true } %></td>
 
+				<% if Like.like_exists?( current_user.id, syneth[1].id) %>
+
+				<td><%= link_to image_tag( 'thumbs-up.jpg', :size => '30x30'), like_url(Like.like_for(current_user.id, syneth[1])), method: 'delete', remote: true %></td>
+
+				<% else %>
+
+				<td><%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30'), { :controller => "likes", :action => "create", :user_id => current_user.id, :sound_id=> syneth[1].id }, {:method => "post", remote: true } %></td>
+
+				<% end %>
+
+				<td>|</td>
 			<% end %>
 
-			<td>|</td>
+			<% if signed_in? && current_user.id == @user.id %>
+
+			<td><%= link_to image_tag('trash-can-icon.jpg', :size => '30x30'), image_url(syneth[0]), method: 'delete', remote: true, data: { confirm: 'Are you sure?' }%></td>
+			<% end %>
+
+		</tr>
 		<% end %>
+	</table>
+</div>
 
-		<% if signed_in? && current_user.id == @user.id %>
-
-		<td><%= link_to image_tag('trash-can-icon.jpg', :size => '30x30'), image_url(syneth[0]), method: 'delete', remote: true, data: { confirm: 'Are you sure?' }%></td>
+<!--  FOLLOWED USERS TABLE -->
+<div id="followed_users" style="display:none">
+<% if @user.followed_users.length > 0 %>
+	<table class="table">
+		<% @user.followed_users.each do |usr| %>
+		  <tr>
+		    <td><%= link_to usr.username, usr %></td>
+		    <td></td>
+		  </tr>
 		<% end %>
+	</table>
+<% else %>
+	<%= @user.username %> is not following anyone followers yet.
+<% end %>
+</div>
 
-	</tr>
+<!--  FOLLOWERS TABLE -->
+<div id="followers" style="display:none">
+<% if @user.followers.length > 0 %>
+	<table class="table" id="followers_table">
+		<% @user.followers.each do |usr| %>
+		  <tr>
+		    <td><%= link_to usr.username, usr %></td>
+		    <td></td>
+		  </tr>
+		<% end %>
+	</table>
+<% else %>
+	<%= @user.username %> does not have any followers yet. 
+	<% if @user != current_user %> 
+	Why don't you <%= link_to "follow #{@user.username}", 
+										{ controller: "relationships", action: "create", user_id: @user.id},
+										{ method: "post", remote: true } %>?
 	<% end %>
-</table>
-
+<% end %>
+</div>

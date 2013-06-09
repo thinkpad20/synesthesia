@@ -40,10 +40,12 @@ class RelationshipsController < ApplicationController
   # POST /relationships
   # POST /relationships.json
   def create
-    @relationship = Relationship.new(params[:relationship])
+    user = User.find_by_id(params[:user_id])
+    @relationship = current_user.follow!(user)
 
     respond_to do |format|
-      if @relationship.save
+      if @relationship.valid?
+        format.js
         format.html { redirect_to @relationship, notice: 'Relationship was successfully created.' }
         format.json { render json: @relationship, status: :created, location: @relationship }
       else

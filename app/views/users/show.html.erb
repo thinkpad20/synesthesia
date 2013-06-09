@@ -32,7 +32,7 @@
 
 		<% if signed_in? %>
 			<td>|</td>
-			<td><%= Like.where(syneth[1].id).count %></td>
+			<td><%= Like.where(:sound_id => syneth[1].id).count %></td>
 
 
 			<% if Like.like_exists?( current_user.id, syneth[1].id) %>
@@ -41,7 +41,7 @@
 
 			<% else %>
 
-			<td><%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30'), likes_url, method: 'post', remote: true, :user_id => current_user.id, :sound_id=> syneth[1] %></td>
+			<td><%= link_to image_tag( 'thumbs-up-disabled.jpg', :size => '30x30'), { :controller => "likes", :action => "create", :user_id => current_user.id, :sound_id=> syneth[1].id }, {:method => "post", remote: true } %></td>
 
 			<% end %>
 

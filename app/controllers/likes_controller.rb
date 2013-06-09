@@ -41,11 +41,13 @@ class LikesController < ApplicationController
   # POST /likes.json
   def create
     @like = Like.new
+    puts "#{params}"
     @like.user_id = params[:user_id]
     @like.sound_id = params[:sound_id]
 
     respond_to do |format|
       if @like.save
+        format.js
         format.html { redirect_to @like, notice: 'Like was successfully created.' }
         format.json { render json: @like, status: :created, location: @like }
       else
@@ -78,6 +80,7 @@ class LikesController < ApplicationController
     @like.destroy
 
     respond_to do |format|
+      format.js
       format.html { redirect_to likes_url }
       format.json { head :no_content }
     end

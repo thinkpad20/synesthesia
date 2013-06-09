@@ -1,3 +1,10 @@
+<script type="text/javascript">
+$(document).ajaxSend(function(e, xhr, options) {
+ var token = $("meta[name='csrf-token']").attr("content");
+  xhr.setRequestHeader("X-CSRF-Token", token);
+});
+</script>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,7 +49,7 @@
     					<span class="icon-bar"></span>
     					<span class="icon-bar"></span>
     				</button>
-    				<a class="brand" href="/home">Synesthesia</a>
+    				<a class="brand" href="/">Synesthesia</a>
     				<div class="nav-collapse collapse">
     					<ul class="nav">
     						<li><%= link_to "Users", users_url %></li>

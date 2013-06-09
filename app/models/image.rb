@@ -1,6 +1,8 @@
 class Image < ActiveRecord::Base
   attr_accessible :description, :name, :url, :file
 
+  after_destroy :delete_image_resource
+
   belongs_to :user
   has_many :sounds, dependent: :destroy
 
@@ -13,4 +15,10 @@ class Image < ActiveRecord::Base
   		return Image.order("created_at DESC").limit(n)
   	end
   end
+
+  private
+    def delete_image_resource
+      self.signed_up_on = Date.today
+    end
+
 end

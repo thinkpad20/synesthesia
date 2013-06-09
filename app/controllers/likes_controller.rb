@@ -79,10 +79,30 @@ class LikesController < ApplicationController
     @like = Like.find(params[:id])
     @like.destroy
 
+    puts ""
+
     respond_to do |format|
       format.js
       format.html { redirect_to likes_url }
       format.json { head :no_content }
     end
   end
+
+    def toggle_like
+      puts "#{params}"
+      @user_id = params[:user_id]
+      @sound_id = params[:sound_id]
+
+     respond_to do |format|
+      if Like.like_exists?( @user_id, @sound_id )
+        Like.like_for( @user_id, @sound_id ).destroy
+        format.js {render 'destroy.js.erb'}
+      else
+        Like.create(:user_id=>@user_id, :sound_id=>@sound_id)
+        format.js {render 'create.js.erb'}
+      end
+    end
+
+  end
+
 end

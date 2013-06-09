@@ -6,6 +6,11 @@ App::Application.routes.draw do
 
 
   resources :likes
+  resources :likes do
+    member do
+      get 'toggle_like'
+    end
+  end
 
 
   resources :sounds

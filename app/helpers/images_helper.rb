@@ -141,7 +141,7 @@ def make_midi( path, output_name )
 	puts "WROTE RAW"
 	system "lame --preset standard #{output_name}.raw #{final_output}"
 	puts "WROTE MP3"
-	system "rm #{output_name}.mid #{output_name}.raw"
+	# system "rm #{output_name}.mid #{output_name}.raw"
 	puts "Successfully created file, final output = #{final_output}, (images helper) pwd:"
 	system "pwd"
 end

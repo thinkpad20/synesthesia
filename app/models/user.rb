@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
                                    dependent:   :destroy
   	has_many :followers, through: :reverse_relationships, source: :follower
 
-	has_attached_file :avatar, :styles => { :medium => "300x300>", :thumb => "100x100>" }, :default_url => "/assets/:style/missing.png", dependent: :destroy
+	has_attached_file :avatar, :styles => { :medium => "300x300#", :thumb => "100x100#" }, :default_url => "/assets/:style/missing.png", dependent: :destroy
 
 	def self.validate_email(addr)
 		if not addr.present?
@@ -80,4 +80,5 @@ class User < ActiveRecord::Base
   	def unfollow!(other_user)
     		relationships.find_by_followed_id(other_user.id).destroy
   	end
+
 end

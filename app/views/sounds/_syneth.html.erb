@@ -21,7 +21,7 @@
 						</table>
 					<% else %>
 						<div id="comment_none_<%= syneth[1].id %>">
-							This doesn't have any comments yet. 
+							This doesn't have any comments yet.
 							<% if signed_in? %>
 							Why don't you <%= link_to_function "write one", "write_comment(#{syneth[1].id})" %>?
 							<% end %>
@@ -49,7 +49,7 @@
 
 		<% if signed_in? %>
 			<td>|</td>
-			<td><%= Like.where(:sound_id => syneth[1].id).count %></td>
+			<td id="like_count_<%= syneth[1].id %>"><%= Like.where(:sound_id => syneth[1].id).count %></td>
 
 
 			<% if Like.like_exists?( current_user.id, syneth[1].id) %>

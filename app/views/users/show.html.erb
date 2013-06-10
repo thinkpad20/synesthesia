@@ -39,16 +39,28 @@ var write_comment = function(sound_id) {
   <%= @user.full_name %>
 </p>
 
+<!-- if user is signed in and is viewing their profile -->
 <% if signed_in? && current_user.id == @user.id %>
 
 <%= link_to 'Edit Profile', edit_user_path(@user) %> |
+
+<!-- if user is signed in and is viewing someone's profile who they haven't followed -->
+<% elsif signed_in? && !current_user.following?(@user) %>
+
+<%= link_to 'Follow', { controller: "relationships", action: "create", user_id: @user.id},
+						{ method: "post", remote: true } %> |
+
+<% elsif signed_in? && current_user.following?(@user) %>
+
+<%= link_to 'Unfollow', { controller: "relationships", action: "destroy", user_id: @user.id},
+						{ method: "delete", remote: true } %> |
 
 <% end %>
 
 <%= link_to 'Back to users', users_path %>
 
-<div class="navbar">
-  <div class="navbar-inner">
+<div class="navbar" style="margin-top: 15px">
+  <div class="navbar-inner" >
     <div class="container">
       <ul class="nav">
         <li id="syneths_header" class="active"><%= link_to_function 'syneths', 'activ("syneths")'%></li>
@@ -75,13 +87,22 @@ var write_comment = function(sound_id) {
 	<table class="table">
 		<% @user.followed_users.each do |usr| %>
 		  <tr>
-		    <td><%= link_to usr.username, usr %></td>
-		    <td></td>
+		    	<td><%= link_to usr.username, usr %></td>
+		    	<td><% if signed_in? && current_user.id == @user.id %>
+		    		<%= link_to "Unfollow #{usr.username}",
+										{ controller: "relationships", action: "destroy", user_id: usr.id},
+										{ method: "delete", remote: true } %>
+				<% end %>
+			</td>
 		  </tr>
 		<% end %>
 	</table>
 <% else %>
-	<%= @user.username %> is not following anyone followers yet.
+	<% if current_user == @user %>
+		You are not following anyone yet.
+	<% else %>
+	  <%= @user.username %> is not following anyone yet.
+	<% end %>
 <% end %>
 </div>
 
@@ -97,7 +118,11 @@ var write_comment = function(sound_id) {
 		<% end %>
 	</table>
 <% else %>
-	<%= @user.username %> does not have any followers yet.
+		<% if current_user == @user %>
+		You don't have any followers.
+	<% else %>
+	  <%= @user.username %> does not have any followers.
+	<% end %>
 	<% if signed_in? && @user != current_user %>
 	Why don't you <%= link_to "follow #{@user.username}",
 										{ controller: "relationships", action: "create", user_id: @user.id},

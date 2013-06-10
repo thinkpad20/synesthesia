@@ -74,12 +74,15 @@ class RelationshipsController < ApplicationController
   # DELETE /relationships/1
   # DELETE /relationships/1.json
   def destroy
-    @relationship = Relationship.find(params[:id])
+    @user = User.find_by_id(params[:user_id])
+    puts "#{@user}"
+    @relationship = current_user.unfollow!(@user)
     @relationship.destroy
 
     respond_to do |format|
-      format.html { redirect_to relationships_url }
-      format.json { head :no_content }
+        format.js
+        format.html { redirect_to relationships_url }
+        format.json { head :no_content }
     end
   end
 end

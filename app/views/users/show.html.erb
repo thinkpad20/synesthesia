@@ -1,7 +1,7 @@
 <script type="text/javascript">
 var activ = function(id) {
-	var elems = [$('#syneths'), $('#followed_users'), $('#followers')];
-	var hdrs = [$('#syneths_header'), $('#followed_users_header'), $('#followers_header')];
+	var elems = [$('#syneths'), $('#followed_users'), $('#followers'), $('#syneth_stream')];
+	var hdrs = [$('#syneths_header'), $('#followed_users_header'), $('#followers_header'), $('#syneth_stream_header')];
 	var idx = 0;
 	while (idx < elems.length) {
 		var elem = elems[idx];
@@ -47,13 +47,13 @@ var write_comment = function(sound_id) {
 <!-- if user is signed in and is viewing someone's profile who they haven't followed -->
 <% elsif signed_in? && !current_user.following?(@user) %>
 
-<%= link_to 'Follow', { controller: "relationships", action: "create", user_id: @user.id},
-						{ method: "post", remote: true } %> |
+<%= link_to 'Follow',  { controller: "relationships", action: "toggle_follow", user_id: @user.id },
+						{ method: "get", remote: true, :id=> "follow"} %> |
 
 <% elsif signed_in? && current_user.following?(@user) %>
 
-<%= link_to 'Unfollow', { controller: "relationships", action: "destroy", user_id: @user.id},
-						{ method: "delete", remote: true } %> |
+<%= link_to 'Unfollow', { controller: "relationships", action: "toggle_follow", user_id: @user.id},
+						{ method: "get", remote: true, :id=> "follow"} %> |
 
 <% end %>
 
@@ -63,16 +63,17 @@ var write_comment = function(sound_id) {
   <div class="navbar-inner" >
     <div class="container">
       <ul class="nav">
-        <li id="syneths_header" class="active"><%= link_to_function 'syneths', 'activ("syneths")'%></li>
+        <li id="syneths_header" class="active"><%= link_to_function "#{@user.username}'s syneths", 'activ("syneths")'%></li>
         <li id="followed_users_header"><%= link_to_function 'followed users', 'activ("followed_users")'%></li>
         <li id="followers_header"><%= link_to_function 'followers', 'activ("followers")'%></li>
+         <li id="syneth_stream_header"><%= link_to_function 'syneth stream', 'activ("syneth_stream")'%></li>
       </ul>
     </div>
   </div>
 </div><!-- /.navbar -->
 
 
-<!--  SYNETHS TABLE -->
+<!--  YOUR SYNETHS TABLE -->
 <div id="syneths">
 	<table class="table">
 		<% @user.get_syneths.each do |syneth| %>
@@ -83,50 +84,54 @@ var write_comment = function(sound_id) {
 
 <!--  FOLLOWED USERS TABLE -->
 <div id="followed_users" style="display:none">
-<% if @user.followed_users.length > 0 %>
-	<table class="table">
-		<% @user.followed_users.each do |usr| %>
-		  <tr>
-		    	<td><%= link_to usr.username, usr %></td>
-		    	<td><% if signed_in? && current_user.id == @user.id %>
-		    		<%= link_to "Unfollow #{usr.username}",
-										{ controller: "relationships", action: "destroy", user_id: usr.id},
-										{ method: "delete", remote: true } %>
-				<% end %>
-			</td>
-		  </tr>
+	<table class="table" id= "followed_users_table">
+		<% if @user.followed_users.count > 0 %>
+			<% @user.followed_users.each do |usr| %>
+				<tr id="unfollow_row_<%= usr.id %>">
+				    	<td><%= link_to usr.username, usr, id: "unfollow_cell1_#{usr.id}" %></td>
+				    	<% if signed_in? && current_user.id == @user.id %>
+				    	<td>
+				    		<%= link_to "Unfollow #{usr.username}",
+												{ controller: "relationships", action: "destroy", user_id: usr.id},
+												{ method: "delete", remote: true, id: "unfollow_cell2_#{usr.id}"} %>
+					</td>
+					<% end %>
+			  </tr>
+			<% end %>
+		<% else %>
+			<%= render 'default_followed_users_row', user: @user %>
 		<% end %>
 	</table>
-<% else %>
-	<% if current_user == @user %>
-		You are not following anyone yet.
-	<% else %>
-	  <%= @user.username %> is not following anyone yet.
-	<% end %>
-<% end %>
 </div>
 
 <!--  FOLLOWERS TABLE -->
 <div id="followers" style="display:none">
-<% if @user.followers.length > 0 %>
 	<table class="table" id="followers_table">
-		<% @user.followers.each do |usr| %>
-		  <tr>
-		    <td><%= link_to usr.username, usr %></td>
-		    <td></td>
-		  </tr>
+		<% if @user.followers.length > 0 %>
+			<% @user.followers.each do |follower| %>
+			<%= render 'follower_row', usr: follower %>
+			<% end %>
+		<% else %>
+			<%= render 'default_followers_row', user: @user %>
 		<% end %>
 	</table>
-<% else %>
-		<% if current_user == @user %>
-		You don't have any followers.
-	<% else %>
-	  <%= @user.username %> does not have any followers.
-	<% end %>
-	<% if signed_in? && @user != current_user %>
-	Why don't you <%= link_to "follow #{@user.username}",
-										{ controller: "relationships", action: "create", user_id: @user.id},
-										{ method: "post", remote: true } %>?
-	<% end %>
-<% end %>
+</div>
+
+<!--  SYNETH STREAM TABLE -->
+<div id="syneth_stream" style="display:none">
+	<table class="table" id="syneth_stream_table">
+		<% if @user.followed_users_syneths.count > 0 %>
+			<% @user.followed_users_syneths.each do |syneth| %>
+				<%= render 'sounds/syneth', :syneth => syneth %>
+			<% end %>
+		<% else %>
+		<tr>
+			<% if current_user == @user %>
+				<td>No syneths in your stream!</td>
+			<% else %>
+			  <td>No syneths in <%= @user.username %>'s stream!</td>
+			<% end %>
+		</tr>
+		<% end %>
+	</table>
 </div>

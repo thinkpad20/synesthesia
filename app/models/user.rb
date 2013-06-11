@@ -81,4 +81,14 @@ class User < ActiveRecord::Base
     		relationships.find_by_followed_id(other_user.id).destroy
   	end
 
+  	def followed_users_syneths
+  		ordered_syneths = []
+  		followed_users.each do |followed_usr|
+  			followed_usr.get_syneths.each do |syneth|
+  				ordered_syneths << syneth
+  			end
+  		end
+  		ordered_syneths.sort! { |a, b| b[1].updated_at <=> a[1].updated_at }
+  	end
+
 end

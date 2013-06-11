@@ -1,9 +1,13 @@
 App::Application.routes.draw do
-  resources :relationships
 
+  resources :relationships
+    resources :relationships do
+    member do
+      get 'toggle_follow'
+    end
+  end
 
   resources :comments
-
 
   resources :likes
   resources :likes do
@@ -11,7 +15,6 @@ App::Application.routes.draw do
       get 'toggle_like'
     end
   end
-
 
   resources :sounds
 

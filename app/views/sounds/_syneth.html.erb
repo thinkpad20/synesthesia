@@ -1,14 +1,19 @@
-<tr id="image_<%= syneth[0].id %>">
+<% syneth_owner = User.find_by_id(syneth[0].user_id) %>
+<tr id="syneth_row_<%= syneth_owner.id %>">
+	<th><%= link_to "#{syneth_owner.username}", User.find_by_id(syneth_owner.id) %>
+			- <em>"<%= syneth[1].name %>"</em>
+	</th>
+	<th><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></th>
+	<th></th>
+	<th></th>
+</tr>
+<tr id="syneth_row_<%= syneth_owner.id %>">
 	<% if not defined?(mini) %>
 	<% mini = false %>
 	<% end %>
 
-	<td><%= image_tag syneth[0].file.url(:thumb) %></td>
-	<% if not mini %>
-	<td><%= syneth[0].name %></td>
-	<td><%= syneth[0].updated_at.utc.getlocal.to_formatted_s(:day_month_year_time) %></td>
-	<% end %>
-	<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio></td>
+	<td><%= image_tag syneth[0].file.url(:thumb), id:"image_#{syneth[0].id}" %></td>
+	<td><audio controls><source src="<%= syneth[1].url.split("public")[1] %>" type="audio/mpeg"></audio controls></td>
 
 	<% if not mini %>
 		<td>
@@ -27,16 +32,20 @@
 							<% end %>
 						</div>
 					<% end %>
+
+					<!-- can only write comment if signed in -->
+					<% if signed_in? %>
 					<div id="comment_write_<%= syneth[1].id %>" style="display:none">
-			    	<form action="/comments" method="post">
-			        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-			        <input name="comment[user_id]" value="<%= current_user.id %>" type="number" style="display:none">
-			        <input name="comment[sound_id]" value="<%= syneth[1].id %>" type="number" style="display:none">
-			        <input name="source_page" value="<%= user_url(@user) %>" type="hidden">
+			    		<form action="/comments" method="post">
+				        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+				        <input name="comment[user_id]" value="<%= current_user.id %>" type="number" style="display:none">
+				        <input name="comment[sound_id]" value="<%= syneth[1].id %>" type="number" style="display:none">
+				        <input name="source_page" value="<%= user_url(@user) %>" type="hidden">
 							<textarea placeholder="Enter a comment here" name="comment[content]"></textarea>
 							<%= button_tag "Submit", type:"submit", class:"btn" %>
 						</form>
 					</div> <!-- comment write form -->
+					<% end %>
 				</div> <!-- comment area -->
 
 			<% if signed_in? && syneth[1].comments.length > 0 %>

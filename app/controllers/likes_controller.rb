@@ -96,10 +96,10 @@ class LikesController < ApplicationController
      respond_to do |format|
       if Like.like_exists?( @user_id, @sound_id )
         Like.like_for( @user_id, @sound_id ).destroy
-        format.js {render 'destroy.js.erb'}
+        format.js {render 'destroy'}
       else
         Like.create(:user_id=>@user_id, :sound_id=>@sound_id)
-        format.js {render 'create.js.erb'}
+        format.js {render 'create'}
       end
     end
 

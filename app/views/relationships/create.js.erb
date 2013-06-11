@@ -1,0 +1,3 @@
+$("#follow").text("Unfollow");
+$("#default_followers_row").remove();
+$('#followers_table').find('tbody:last').append("<%= escape_javascript( render('users/follower_row', usr: current_user) ) %>")

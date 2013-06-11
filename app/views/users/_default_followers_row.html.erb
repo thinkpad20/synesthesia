@@ -1,0 +1,9 @@
+<tr id="default_followers_row">
+<td>
+<% if signed_in? && @user != current_user %>
+ 	<%= @user.username %> does not have any followers.
+<% elsif  signed_in? && @user == current_user %>
+	You don't have any followers.
+<% end %>
+</td>
+</tr>

@@ -1,0 +1,15 @@
+// $("#unfollow_cell1_<%= @user.id %>").slideUp();
+// $("#unfollow_cell2_<%= @user.id %>").slideUp();
+$('#followed_users_table tr').each(function() {
+	 if ($(this).attr("id") == "unfollow_row_<%= @user.id %>"){
+	 	$(this).remove();
+	 }
+	 if ( $('#followed_users_table tr').length == 0 ){
+	 	$('#followed_users_table').find('tbody:last').append("<%= escape_javascript( render('users/default_followed_users_row', user: current_user) ) %>");
+	 }
+});
+$('#syneth_stream_table tr').each(function() {
+	 if ($(this).attr("id") == "syneth_row_<%= @user.id %>"){
+	 	$(this).remove();
+	 }
+});

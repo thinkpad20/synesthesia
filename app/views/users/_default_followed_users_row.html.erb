@@ -1,0 +1,9 @@
+<tr>
+	<td>
+	<% if current_user == @user %>
+		You are not following anyone.
+	<% else %>
+	  <%= @user.username %> is not following anyone.
+	<% end %>
+	</td>
+</tr>

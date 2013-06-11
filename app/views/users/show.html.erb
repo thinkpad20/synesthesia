@@ -75,9 +75,13 @@ var write_comment = function(sound_id) {
 
 <!--  YOUR SYNETHS TABLE -->
 <div id="syneths">
-	<table class="table">
-		<% @user.get_syneths.each do |syneth| %>
-			<%= render 'sounds/syneth', :syneth => syneth %>
+	<table class="table" id="your_syneths_table">
+		<% if @user.get_syneths.count > 0 %>
+			<% @user.get_syneths.each do |syneth| %>
+				<%= render 'sounds/syneth', :syneth => syneth %>
+			<% end %>
+		<% else %>
+			<%= render 'default_syneth_row', user: @user %>
 		<% end %>
 	</table>
 </div>
@@ -127,9 +131,9 @@ var write_comment = function(sound_id) {
 		<% else %>
 		<tr>
 			<% if current_user == @user %>
-				<td>No syneths in your stream!</td>
+				<td>No syneths in your stream! Follow some <%= link_to "people", users_path %>.</td>
 			<% else %>
-			  <td>No syneths in <%= @user.username %>'s stream!</td>
+			  <td>No syneths in <%= @user.username %>'s stream! Follow some people.</td>
 			<% end %>
 		</tr>
 		<% end %>

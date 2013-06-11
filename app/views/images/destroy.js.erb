@@ -1,1 +1,10 @@
-$("#image_<%= @image.id %>").slideUp();
+$("#image_<%= @image.id %>").slideUp("fast", function(){
+	$('#your_syneths_table tr').each(function() {
+		 if ($(this).attr("id") == "syneth_row_<%= @image.user.id %>"){
+		 	$(this).remove();
+		 }
+	});
+	 if ( $('#your_syneths_table tr').length == 0 ){
+	 	$('#your_syneths_table').find('tbody:last').append("<%= escape_javascript( render('users/default_syneth_row', user: @user) ) %>");
+	 }
+});

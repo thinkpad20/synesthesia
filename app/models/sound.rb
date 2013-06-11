@@ -3,7 +3,7 @@ class Sound < ActiveRecord::Base
 
   after_destroy :delete_sound_resource
 
-  has_many :likes
+  has_many :likes, dependent: :destroy
   belongs_to :image
   has_many :comments
 

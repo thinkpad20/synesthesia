@@ -99,6 +99,7 @@ include ImagesHelper
   # DELETE /images/1.json
   def destroy
     @image = Image.find(params[:id])
+    @user = current_user
     @image.destroy
 
     respond_to do |format|

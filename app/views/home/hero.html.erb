@@ -1,34 +1,71 @@
-      <!-- Main hero unit for a primary marketing message or call to action -->
-      <div class="hero-unit">
-        <h1>Synesthesia</h1>
-        <p>Change your images into music with Synesthesia's advanced algorithms</p>
-        <p><a href="#" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
-      </div>
+<script>
+var learn_more = function() {
+  $("#learn_more").hide()
+  $('#spacer').show()
+  $("#learn_more_text").show()
+}
+var learn_less = function() {
+  $("#learn_more").show()
+  $('#spacer').hide()
+  $("#learn_more_text").hide()
+}
+</script>
 
-      <!-- Example row of columns -->
-      <div class="row">
-        <!-- <div class="span4">
-          <h2>Heading</h2>
-          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-          <p><a class="btn" href="#">View details &raquo;</a></p>
-        </div> -->
-        <div class="span6">
-          <h2>Recent synesths</h2>
-          <table class="table">
-            <% Image.last_n_syneths(10).each do |syneth| %>
-              <%= render 'sounds/syneth', :syneth => syneth, :mini => true %>
-            <% end %>
-          </table>
-       </div>
-        <div class="span6">
-          <h2>Recent users</h2>
-          <table class="table">
-            <% User.last_n(10).each do |usr| %>
-              <tr>
-                <td><%= link_to usr.username, usr %></td>
-                <td></td>
-              </tr>
-            <% end %>
-          </table>
-        </div>
-      </div> <!-- hero-unit -->
+<style>
+table.invis {
+  border:none;
+}
+</style>
+
+<!-- Main hero unit for a primary marketing message or call to action -->
+<div class="hero-unit">
+  <table class="invis">
+    <tr>
+      <td>
+        <h1>Synesthesia</h1>
+      </td>
+      <td rowspan="3" id="spacer">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+      <td rowspan="3" id="learn_more_text" style="display:none">
+        Upload an image, and we'll convert it into music! Using an algorithm that examines the pixels of your image and translates them into notes, we construct a MIDI file that is unique to that image, and convert it to an mp3 we call a "syneth", which you can download or play in your browser. Create, comment and share!
+        <p>
+          <a href="#" onclick="learn_less()">hide</a>
+        </p>
+      </td>
+    </tr>
+    <tr>
+      <td>Change your images into music with Synesthesia's advanced algorithms</td>
+    <tr>
+      <td>
+        <a href="#" onclick="learn_more()" id="learn_more" class="btn btn-primary btn-large">Learn more &raquo;</a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<!-- Example row of columns -->
+<div class="row">
+  <!-- <div class="span4">
+    <h2>Heading</h2>
+    <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+    <p><a class="btn" href="#">View details &raquo;</a></p>
+  </div> -->
+  <div class="span6">
+    <h2>Recent synesths</h2>
+    <table class="table">
+      <% Image.last_n_syneths(10).each do |syneth| %>
+        <%= render 'sounds/syneth', :syneth => syneth, :mini => true %>
+      <% end %>
+    </table>
+ </div>
+  <div class="span6">
+    <h2>Recent users</h2>
+    <table class="table">
+      <% User.last_n(10).each do |usr| %>
+        <tr>
+          <td><%= link_to usr.username, usr %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div> <!-- hero-unit -->

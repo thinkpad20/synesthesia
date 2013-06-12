@@ -1,5 +1,5 @@
 <% syneth_owner = User.find_by_id(syneth[0].user_id) %>
-<tr id="syneth_row_<%= syneth_owner.id %>">
+<tr id="syneth_row_<%= syneth[0].id %>" class="<%= syneth_owner.id %>">
 	<th><%= link_to "#{syneth_owner.username}", User.find_by_id(syneth_owner.id) %>
 			- <em>"<%= syneth[1].name %>"</em>
 	</th>
@@ -7,7 +7,7 @@
 	<th></th>
 	<th></th>
 </tr>
-<tr id="syneth_row_<%= syneth_owner.id %>">
+<tr id="syneth_row_<%= syneth[0].id %>" class="<%= syneth_owner.id %>">
 	<% if not defined?(mini) %>
 	<% mini = false %>
 	<% end %>

@@ -136,7 +136,7 @@ def make_midi( path, output_name )
 	puts "ABOUT TO WRITE MIDI"
 	File.open("#{output_name}.mid", 'wb') { |file| seq.write(file) }
 	puts "WROTE MIDI"
-	final_output = get_url(path, output_name)
+	final_output = get_final_output(path, output_name)
 	system "fluidsynth -F #{output_name}.raw /usr/share/sounds/sf2/FluidR3_GM.sf2 #{output_name}.mid"
 	puts "WROTE RAW"
 	system "lame --preset standard #{output_name}.raw #{final_output}"
@@ -146,8 +146,12 @@ def make_midi( path, output_name )
 	system "pwd"
 end
 
-def get_url(path, output_name)
+def get_final_output(path, output_name)
 	return Rails.root.to_s + "/public/sound/#{output_name}.mp3"
+end
+
+def get_url(path, output_name)
+	return "/public/sound/#{output_name}.mp3"
 end
 
 def sanitize_filename(filename)

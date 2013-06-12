@@ -46,17 +46,17 @@ Relationship.create([
 
 
 Sound.create([
-  { :name => "zoom", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/zoomtest.mp3", :algorithm_name => nil, :created_at => "2013-06-09 20:12:44", :updated_at => "2013-06-09 20:12:44", :image_id => 1 },
-  { :name => "Crazy car", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/Crazycartest.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:10:53", :updated_at => "2013-06-12 18:10:53", :image_id => 2 },
-  { :name => "\\m/", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/_m_test.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:12:20", :updated_at => "2013-06-12 18:12:20", :image_id => 3 },
-  { :name => "Oh crap", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/Ohcraptweety.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:17:27", :updated_at => "2013-06-12 18:17:27", :image_id => 4 },
-  { :name => "Arrrr", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/Arrrrtweety.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:17:51", :updated_at => "2013-06-12 18:17:51", :image_id => 5 },
-  { :name => "inside my brain", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/insidemybrainvoodoo.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:19:54", :updated_at => "2013-06-12 18:19:54", :image_id => 6 },
-  { :name => "crazy city", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/crazycityvoodoo.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:20:47", :updated_at => "2013-06-12 18:20:47", :image_id => 7 },
-  { :name => "hot girl 1", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/hotgirl1da_parrot.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:22:31", :updated_at => "2013-06-12 18:22:31", :image_id => 8 },
-  { :name => "hot girl 2", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/hotgirl2da_parrot.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:22:46", :updated_at => "2013-06-12 18:22:46", :image_id => 9 },
-  { :name => "hot girl 3", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/hotgirl3da_parrot.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:23:02", :updated_at => "2013-06-12 18:23:02", :image_id => 10 },
-  { :name => "hot girl 4", :description => nil, :url => "/Users/thinkpad20/Documents/workspace/cspp52553/fin/synesthesia/public/sound/hotgirl4da_parrot.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:24:24", :updated_at => "2013-06-12 18:24:24", :image_id => 11 }
+  { :name => "zoom", :description => nil, :url => "/public/sound/zoomtest.mp3", :algorithm_name => nil, :created_at => "2013-06-09 20:12:44", :updated_at => "2013-06-09 20:12:44", :image_id => 1 },
+  { :name => "Crazy car", :description => nil, :url => "/public/sound/Crazycartest.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:10:53", :updated_at => "2013-06-12 18:10:53", :image_id => 2 },
+  { :name => "\\m/", :description => nil, :url => "/public/sound/_m_test.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:12:20", :updated_at => "2013-06-12 18:12:20", :image_id => 3 },
+  { :name => "Oh crap", :description => nil, :url => "/public/sound/Ohcraptweety.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:17:27", :updated_at => "2013-06-12 18:17:27", :image_id => 4 },
+  { :name => "Arrrr", :description => nil, :url => "/public/sound/Arrrrtweety.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:17:51", :updated_at => "2013-06-12 18:17:51", :image_id => 5 },
+  { :name => "inside my brain", :description => nil, :url => "/public/sound/insidemybrainvoodoo.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:19:54", :updated_at => "2013-06-12 18:19:54", :image_id => 6 },
+  { :name => "crazy city", :description => nil, :url => "/public/sound/crazycityvoodoo.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:20:47", :updated_at => "2013-06-12 18:20:47", :image_id => 7 },
+  { :name => "hot girl 1", :description => nil, :url => "/public/sound/hotgirl1da_parrot.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:22:31", :updated_at => "2013-06-12 18:22:31", :image_id => 8 },
+  { :name => "hot girl 2", :description => nil, :url => "/public/sound/hotgirl2da_parrot.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:22:46", :updated_at => "2013-06-12 18:22:46", :image_id => 9 },
+  { :name => "hot girl 3", :description => nil, :url => "/public/sound/hotgirl3da_parrot.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:23:02", :updated_at => "2013-06-12 18:23:02", :image_id => 10 },
+  { :name => "hot girl 4", :description => nil, :url => "/public/sound/hotgirl4da_parrot.mp3", :algorithm_name => nil, :created_at => "2013-06-12 18:24:24", :updated_at => "2013-06-12 18:24:24", :image_id => 11 }
 ], :without_protection => true )
 
 

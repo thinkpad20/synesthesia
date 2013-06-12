@@ -18,6 +18,7 @@ Then download the fluid soundfont and copy it to the shared directory. If you ha
 > brew install wget
 > wget http://www.musescore.org/download/fluid-soundfont.tar.gz
 > tar -xzf fluid-soundfont.tar.gz
+> sudo mkdir /usr/share/sounds
 > sudo mkdir /usr/share/sounds/sf2
 > sudo mv fluid-soundfond.tar.gz /usr/share/sounds/sf2
 ```

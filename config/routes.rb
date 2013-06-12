@@ -1,6 +1,6 @@
 App::Application.routes.draw do
 
-  resources :relationships
+  resources :relationships, :only => [:create, :destroy]
     resources :relationships do
     member do
       get 'toggle_follow'

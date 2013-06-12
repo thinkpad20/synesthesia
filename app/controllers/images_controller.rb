@@ -36,10 +36,6 @@ include ImagesHelper
   # end
 
   def create
-    # if !signed_in?
-    #   redirect_to home_url
-    # end
-
     @image = Image.new(params[:image])
     @image.user_id = current_user.id
 

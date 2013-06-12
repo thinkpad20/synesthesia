@@ -5,14 +5,12 @@ class ApplicationController < ActionController::Base
 	protect_from_forgery
 	helper_method :signed_in?
 	helper_method :current_user
-	before_filter :require_login
+	before_filter :require_login, :only => [ :edit, :update, :create, :new ]
 
 	def require_login
-		if (self.class == UsersController || self.class == ImagesController)
-			&& (self.action == "edit" || self.action == "create")
-			unless signed_in?
-				flash[:error] = "You must be logged in to access this section"
-				redirect_to home_url
+		unless signed_in?
+			if self.class != SessionsController
+				redirect_to home_url,  notice: "You must be logged in to access this section"
 			end
 		end
 	end

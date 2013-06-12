@@ -1,7 +1,5 @@
 class LikesController < ApplicationController
 
-  # POST /likes
-  # POST /likes.json
   def create
     @like = Like.new
     puts "#{params}"
@@ -20,8 +18,6 @@ class LikesController < ApplicationController
     end
   end
 
-  # DELETE /likes/1
-  # DELETE /likes/1.json
   def destroy
     @like = Like.find(params[:id])
     @like.destroy

@@ -3,6 +3,8 @@ class Image < ActiveRecord::Base
 
   belongs_to :user
   has_many :sounds, dependent: :destroy
+  validates :name, :presence => true, :length => { :maximum => 50 }
+  validates :file, :presence => true
   has_attached_file :file, :styles => { :medium => "300x300#", :thumb => "100x100#" }, :default_url => "/assets/:style/missing.png", dependent: :destroy
 
   def self.last_n(n, user_id = nil)

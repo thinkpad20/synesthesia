@@ -7,9 +7,9 @@ App::Application.routes.draw do
     end
   end
 
-  resources :comments
+  resources :comments, :except => [:edit, :update]
 
-  resources :likes
+  resources :likes, :only => [:create, :destroy]
   resources :likes do
     member do
       get 'toggle_like'
@@ -18,9 +18,7 @@ App::Application.routes.draw do
 
   resources :sounds
 
-
   resources :images
-
 
   resources :users
 

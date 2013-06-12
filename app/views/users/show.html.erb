@@ -133,7 +133,7 @@ var write_comment = function(sound_id) {
 			<% if current_user == @user %>
 				<td>No syneths in your stream! Follow some <%= link_to "people", users_path %>.</td>
 			<% else %>
-			  <td>No syneths in <%= @user.username %>'s stream! Follow some people.</td>
+			  <td>No syneths in <%= @user.username %>'s stream.</td>
 			<% end %>
 		</tr>
 		<% end %>

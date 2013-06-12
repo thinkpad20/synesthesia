@@ -2,8 +2,7 @@ class ImagesController < ApplicationController
 
 include ImagesHelper
 
-  # GET /images
-  # GET /images.json
+
   def index
     @images = Image.all
 
@@ -13,8 +12,6 @@ include ImagesHelper
     end
   end
 
-  # GET /images/1
-  # GET /images/1.json
   def show
     @image = Image.find(params[:id])
 
@@ -24,8 +21,6 @@ include ImagesHelper
     end
   end
 
-  # GET /images/new
-  # GET /images/new.json
   def new
     @image = Image.new
 
@@ -35,18 +30,15 @@ include ImagesHelper
     end
   end
 
-  # GET /images/1/edit
-  def edit
-    @image = Image.find(params[:id])
-  end
+  ### NOT IMPLEMENTED BUT MIGHT IMPLEMENT IN THE FUTURE  ###
+  # def edit
+  #   @image = Image.find(params[:id])
+  # end
 
-  # POST /images
-  # POST /images.json
   def create
-    #TODO: form validation
-    if !signed_in?
-      redirect_to home_url
-    end
+    # if !signed_in?
+    #   redirect_to home_url
+    # end
 
     @image = Image.new(params[:image])
     @image.user_id = current_user.id
@@ -73,30 +65,27 @@ include ImagesHelper
         format.html { redirect_to current_user, notice: 'Syneth was successfully created.' }
         format.json { render json: current_user, status: :created, location: @image }
       else
-        format.html { render action: "new" }
+        format.html { render action: "new"}
         format.json { render json: @image.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PUT /images/1
-  # PUT /images/1.json
-  def update
-    @image = Image.find(params[:id])
+  ### NOT IMPLEMENTED BUT MIGHT IMPLEMENT IN THE FUTURE  ###
+  # def update
+  #   @image = Image.find(params[:id])
 
-    respond_to do |format|
-      if @image.update_attributes(params[:image])
-        format.html { redirect_to @image, notice: 'Image was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @image.errors, status: :unprocessable_entity }
-      end
-    end
-  end
+  #   respond_to do |format|
+  #     if @image.update_attributes(params[:image])
+  #       format.html { redirect_to @image, notice: 'Image was successfully updated.' }
+  #       format.json { head :no_content }
+  #     else
+  #       format.html { render action: "edit" }
+  #       format.json { render json: @image.errors, status: :unprocessable_entity }
+  #     end
+  #   end
+  # end
 
-  # DELETE /images/1
-  # DELETE /images/1.json
   def destroy
     @image = Image.find(params[:id])
     @user = current_user

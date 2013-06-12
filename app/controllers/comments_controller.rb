@@ -32,11 +32,6 @@ class CommentsController < ApplicationController
     end
   end
 
-  # GET /comments/1/edit
-  def edit
-    @comment = Comment.find(params[:id])
-  end
-
   # POST /comments
   # POST /comments.json
   def create

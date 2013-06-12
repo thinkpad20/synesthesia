@@ -28,11 +28,11 @@ end
 
 gem 'jquery-rails'
 
-gem 'soundcloud'
-
 gem 'midilib'
 
 gem 'rmagick'
+
+gem 'seed_dump'
 
 # gem 'valid_email', :require => 'valid_email/email_validator'
 

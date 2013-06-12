@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
-  # GET /users
-  # GET /users.json
+  skip_before_filter :require_login, :only => [ :new, :index, :create ]
+
   def index
     foo
     @users = User.all
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
           format.html { redirect_to new_user_url, notice: "#{@user.errors.full_messages.join(', ')}" }
           #TODO: render JSON
         end
-        
+
     else
         # else save user
         @user.password_hash = PasswordHash.createHash(params[:password])

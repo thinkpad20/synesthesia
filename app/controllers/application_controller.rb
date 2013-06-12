@@ -9,9 +9,7 @@ class ApplicationController < ActionController::Base
 
 	def require_login
 		unless signed_in?
-			if self.class != SessionsController
-				redirect_to home_url,  notice: "You must be logged in to access this section"
-			end
+			redirect_to home_url,  notice: "You must be logged in to access this section"
 		end
 	end
 

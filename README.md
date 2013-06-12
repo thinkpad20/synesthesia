@@ -28,6 +28,7 @@ Then clone into the git repository, and migrate/seed the database, and start the
 ```
 > git clone https://github.com/thinkpad20/synesthesia.git
 > cd synesthesia
+> bundle install
 > rake db:migrate
 > rake db:seed
 > rails s

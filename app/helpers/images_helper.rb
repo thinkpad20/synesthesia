@@ -137,7 +137,7 @@ def make_midi( path, output_name )
 	File.open("#{output_name}.mid", 'wb') { |file| seq.write(file) }
 	puts "WROTE MIDI"
 	final_output = get_final_output(path, output_name)
-	system "fluidsynth -F #{output_name}.raw /usr/share/sounds/sf2/FluidR3_GM.sf2 #{output_name}.mid"
+	system "fluidsynth -F #{output_name}.raw #{Rails.root.to_s}/lib/FluidR3_GM.sf2 #{output_name}.mid"
 	puts "WROTE RAW"
 	system "lame --preset standard #{output_name}.raw #{final_output}"
 	puts "WROTE MP3"

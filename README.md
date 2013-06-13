@@ -16,6 +16,7 @@ Then download the fluid soundfont and copy it to the shared directory. If you ha
 
 ```
 > brew install wget
+> brew install imagemagick
 > wget http://www.musescore.org/download/fluid-soundfont.tar.gz
 > tar -xzf fluid-soundfont.tar.gz
 > sudo mkdir /usr/share/sounds

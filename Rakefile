@@ -5,7 +5,3 @@
 require File.expand_path('../config/application', __FILE__)
 
 App::Application.load_tasks
-
-system 'brew install lame'
-system 'brew install fluidsynth'
-system 'brew install sox'

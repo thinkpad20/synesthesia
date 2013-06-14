@@ -6,6 +6,8 @@ This is a website revolving around a function that converts user-provided images
 Installing
 ==========
 
+Mac OS X:
+
 To set up the site, first make sure you have Homebrew installed:
 
 ```
@@ -17,11 +19,8 @@ Then download the fluid soundfont and copy it to the shared directory. If you ha
 ```
 > brew install wget
 > brew install imagemagick
-> wget http://www.musescore.org/download/fluid-soundfont.tar.gz
-> tar -xzf fluid-soundfont.tar.gz
-> sudo mkdir /usr/share/sounds
-> sudo mkdir /usr/share/sounds/sf2
-> sudo mv FluidR3_GM.sf2 /usr/share/sounds/sf2
+> brew install lame
+> brew install fluidsynth
 ```
 
 Then clone into the git repository, and migrate/seed the database, and start the server:
@@ -36,3 +35,13 @@ Then clone into the git repository, and migrate/seed the database, and start the
 ```
 
 Then go to `localhost:3000` in your browser, and enjoy!
+
+Ubuntu:
+
+The instructions are largely the same as above. However, instead of calls to `brew`, you can install everything you need with the following command:
+
+```
+sudo apt-get install git build-essential git-core curl nodejs libmagickcore-dev libmagickwand-dev libpq-dev fluidsynth lame imagemagick 
+```
+
+Next, clone into the repository and follow the same steps.

@@ -1,0 +1,3 @@
+require 'rmagick'
+
+puts "hey"

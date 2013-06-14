@@ -2,7 +2,7 @@ module ImagesHelper
 
 require 'midilib/sequence'
 require 'midilib/consts'
-require 'rmagick'
+require_relative '/home/ubuntu/.rvm/gems/ruby-2.0.0-p195/gems/rmagick-2.13.2/lib/RMagick.rb'
 include MIDI
 
 ################# GET PITCH DATA FROM IMAGE

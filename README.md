@@ -6,7 +6,7 @@ This is a website revolving around a function that converts user-provided images
 Installing
 ==========
 
-Mac OS X:
+**Mac OS X:**
 
 To set up the site, first make sure you have Homebrew installed:
 
@@ -36,7 +36,7 @@ Then clone into the git repository, and migrate/seed the database, and start the
 
 Then go to `localhost:3000` in your browser, and enjoy!
 
-Ubuntu:
+**Ubuntu:**
 
 The instructions are largely the same as above. However, instead of calls to `brew`, you can install everything you need with the following command:
 
